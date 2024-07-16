@@ -1,0 +1,50 @@
+.main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: calc(4vmin + 1rem);
+  justify-content: center;
+  min-height: 100svh;
+  padding: 6vmin;
+  text-align: center;
+}
+
+.main h1 {
+  font-family: var(--font-yellowtail);
+  font-size: calc(8vmin + 1rem);
+  line-height: 1;
+  mix-blend-mode: overlay;
+}
+
+.main p {
+  font-family: var(--font-inter);
+  font-size: calc(1vmin + 0.8rem);
+  line-height: 1.5;
+  mix-blend-mode: overlay;
+}
+
+.main ul {
+  display: flex;
+  gap: calc(3vmin + 1rem);
+  mix-blend-mode: overlay;
+}
+
+.main a {
+  display: flex;
+  outline-color: white;
+  outline-offset: 4px;
+}
+
+.gradielicious {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.linkCircle {
+  border-radius: 50%;
+}
+
+.linkNpm {
+  border-radius: 0.125rem;
+}
