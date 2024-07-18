@@ -7,6 +7,10 @@ export type GradieliciousProps = HTMLAttributes<HTMLDivElement> &
   GradieliciousOptions
 
 export default function Gradielicious({
+  animateAlpha,
+  animateBlue,
+  animateGreen,
+  animateRed,
   resolutionDivisor,
   speed,
   zoom,
@@ -15,8 +19,25 @@ export default function Gradielicious({
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(
-    () => gradielicious(ref.current!, { resolutionDivisor, speed, zoom }),
-    [resolutionDivisor, speed, zoom],
+    () =>
+      gradielicious(ref.current!, {
+        animateAlpha,
+        animateBlue,
+        animateGreen,
+        animateRed,
+        resolutionDivisor,
+        speed,
+        zoom,
+      }),
+    [
+      animateAlpha,
+      animateBlue,
+      animateGreen,
+      animateRed,
+      resolutionDivisor,
+      speed,
+      zoom,
+    ],
   )
 
   return <div {...props} ref={ref} />

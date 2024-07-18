@@ -59,8 +59,8 @@ importers:
   packages/react:
     dependencies:
       gradielicious:
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.2
+        version: 1.0.2
     devDependencies:
       react:
         specifier: ^18.3.1
@@ -708,6 +708,9 @@ packages:
 
   gradielicious@1.0.0:
     resolution: {integrity: sha512-iGx2XniZbRMGC6XsMEj0++DZc/HHKJJoI1KLafKfI9LDXMh/WZ3xaklCVUTQqz1/c7o0Ei0KiHpgBKrvYwZ8Sg==}
+
+  gradielicious@1.0.2:
+    resolution: {integrity: sha512-vVqBOsv4++47G07yvNab5LUcHLw/iQrcdeODJAL9JpxsqCCe4c/oVjckT9AFaQRQ9BmZrCMndpUsbv7QWbBIXg==}
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
@@ -2239,6 +2242,10 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   gradielicious@1.0.0:
+    dependencies:
+      simplex-noise: 4.0.2
+
+  gradielicious@1.0.2:
     dependencies:
       simplex-noise: 4.0.2
 
