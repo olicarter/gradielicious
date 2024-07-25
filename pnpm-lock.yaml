@@ -12,8 +12,8 @@ importers:
         specifier: ^9.6.0
         version: 9.6.0(react@18.3.1)
       gradielicious-react:
-        specifier: ^1.0.0
-        version: 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.1.0
+        version: 1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lucide-react:
         specifier: ^0.408.0
         version: 0.408.0(react@18.3.1)
@@ -59,8 +59,8 @@ importers:
   packages/react:
     dependencies:
       gradielicious:
-        specifier: ^1.0.2
-        version: 1.0.2
+        specifier: ^1.1.0
+        version: 1.1.0
     devDependencies:
       react:
         specifier: ^18.3.1
@@ -700,17 +700,14 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  gradielicious-react@1.0.0:
-    resolution: {integrity: sha512-FYeupZh7hHcsMpfkNN/nZzXiZOOFyJv31/2dsWohcOBqf2UQeFm9KOvXjd11Lb8TdaZeOui96VwvXXrnUqtnaw==}
+  gradielicious-react@1.1.0:
+    resolution: {integrity: sha512-iK+O7Aikt/lCrLj0Lp/23Ue0x6wgq0z5L21krmbnYctH9isw8NKwniqeVAe00OkcfO2mFFk8HV5OocMsruF0TA==}
     peerDependencies:
       react: ^18.3.1
       react-dom: ^18.3.1
 
-  gradielicious@1.0.0:
-    resolution: {integrity: sha512-iGx2XniZbRMGC6XsMEj0++DZc/HHKJJoI1KLafKfI9LDXMh/WZ3xaklCVUTQqz1/c7o0Ei0KiHpgBKrvYwZ8Sg==}
-
-  gradielicious@1.0.2:
-    resolution: {integrity: sha512-vVqBOsv4++47G07yvNab5LUcHLw/iQrcdeODJAL9JpxsqCCe4c/oVjckT9AFaQRQ9BmZrCMndpUsbv7QWbBIXg==}
+  gradielicious@1.1.0:
+    resolution: {integrity: sha512-NcgvzoXl7DA081iOA2CG1RQM8OnoplZzxxnQptlmTXvR/FZ0Yd8a7W+PbF+PZxf/ZNx5zV8zbjCPJrZ7QCj0Qg==}
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
@@ -2235,17 +2232,13 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  gradielicious-react@1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  gradielicious-react@1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      gradielicious: 1.0.0
+      gradielicious: 1.1.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  gradielicious@1.0.0:
-    dependencies:
-      simplex-noise: 4.0.2
-
-  gradielicious@1.0.2:
+  gradielicious@1.1.0:
     dependencies:
       simplex-noise: 4.0.2
 
