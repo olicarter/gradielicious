@@ -1,10 +1,11 @@
 import { createNoise3D } from 'simplex-noise'
 
 export interface GradieliciousOptions {
-  animateAlpha?: boolean
-  animateBlue?: boolean
-  animateGreen?: boolean
-  animateRed?: boolean
+  alpha?: number | 'animate'
+  blue?: number | 'animate'
+  green?: number | 'animate'
+  red?: number | 'animate'
+  animationSource?: 'scroll' | 'time'
   resolutionDivisor?: number
   speed?: number
   zoom?: number
@@ -14,11 +15,12 @@ export default function gradielicious(
   parent: Element,
   options?: GradieliciousOptions,
 ) {
-  const animateRed = options?.animateRed ?? true
-  const animateGreen = options?.animateGreen ?? true
-  const animateBlue = options?.animateBlue ?? true
-  const animateAlpha = options?.animateAlpha ?? false
-  const resolutionDivisor = options?.resolutionDivisor ?? 10
+  const red = options?.red ?? 'animate'
+  const green = options?.green ?? 'animate'
+  const blue = options?.blue ?? 'animate'
+  const alpha = options?.alpha ?? 255
+  const animationSource = options?.animationSource ?? 'time'
+  const resolutionDivisor = options?.resolutionDivisor ?? 20
   const speed = options?.speed ?? 1
   const zoom = options?.zoom ?? 5
 
@@ -27,10 +29,11 @@ export default function gradielicious(
   const zoomAdjusted = zoom * 1000
   const divisor = zoomAdjusted / resolutionDivisor
 
-  let timeR = 0
-  let timeG = 1
-  let timeB = 2
-  let timeA = 3
+  let playing = false
+  let timeR = 1 * (red === 'animate' ? 255 : red)
+  let timeG = 1.1 * (green === 'animate' ? 255 : green)
+  let timeB = 1.2 * (blue === 'animate' ? 255 : blue)
+  let timeA = 1.3 * (alpha === 'animate' ? 255 : alpha)
 
   const draw = () => {
     const ctx = canvas.getContext('2d')
@@ -45,36 +48,65 @@ export default function gradielicious(
 
     for (let y = 0; y < canvas.height; y++) {
       for (let x = 0; x < canvas.width; x++) {
-        const valueR = animateRed ? noiseFunc(x, y, timeR) : 1
-        const valueG = animateGreen ? noiseFunc(x, y, timeG) : 1
-        const valueB = animateBlue ? noiseFunc(x, y, timeB) : 1
-        const valueA = animateAlpha ? noiseFunc(x, y, timeA) : 1
+        const valueR = red === 'animate' ? noiseFunc(x, y, timeR) : red
+        const valueG = green === 'animate' ? noiseFunc(x, y, timeG) : green
+        const valueB = blue === 'animate' ? noiseFunc(x, y, timeB) : blue
+        const valueA = alpha === 'animate' ? noiseFunc(x, y, timeA) : alpha
 
         const cell = (y * canvas.width + x) * 4
-        data[cell] = valueR * 255
-        data[cell + 1] = valueG * 255
-        data[cell + 2] = valueB * 255
-        data[cell + 3] = valueA * 255
+        data[cell] = valueR * (red === 'animate' ? 255 : red)
+        data[cell + 1] = valueG * (green === 'animate' ? 255 : green)
+        data[cell + 2] = valueB * (blue === 'animate' ? 255 : blue)
+        data[cell + 3] = valueA * (alpha === 'animate' ? 255 : alpha)
       }
     }
 
     ctx.putImageData(imageData, 0, 0)
 
-    const speedAdjusted = (speed / zoomAdjusted) * 10
-    if (animateRed) timeR += speedAdjusted
-    if (animateGreen) timeG += speedAdjusted + speedAdjusted * 0.001
-    if (animateBlue) timeB += speedAdjusted + speedAdjusted * 0.002
-    if (animateAlpha) timeA += speedAdjusted + speedAdjusted * 0.002
-
-    requestAnimationFrame(draw)
+    if (animationSource === 'time') {
+      const speedAdjusted = (speed / zoomAdjusted) * 10
+      if (red === 'animate') timeR += speedAdjusted
+      if (green === 'animate') timeG += speedAdjusted + speedAdjusted * 0.001
+      if (blue === 'animate') timeB += speedAdjusted + speedAdjusted * 0.002
+      if (alpha === 'animate') timeA += speedAdjusted + speedAdjusted * 0.002
+      if (playing) requestAnimationFrame(draw)
+    }
   }
 
-  const resize = () => {
+  function resize() {
     canvas.width = canvas.clientWidth / resolutionDivisor
     canvas.height = canvas.clientHeight / resolutionDivisor
   }
 
-  window.addEventListener('resize', resize)
+  function handleScroll() {
+    const distanceScrolled = window.scrollY
+    const speedAdjusted = 255 + (speed / zoomAdjusted) * distanceScrolled
+    if (red === 'animate') timeR = speedAdjusted
+    if (green === 'animate') timeG = speedAdjusted * 1.1
+    if (blue === 'animate') timeB = speedAdjusted * 1.2
+    if (alpha === 'animate') timeA = speedAdjusted * 1.3
+    requestAnimationFrame(draw)
+  }
+
+  function intersectionObserverCallback(entries: IntersectionObserverEntry[]) {
+    entries.forEach(entry => {
+      playing = entry.isIntersecting
+      if (entry.isIntersecting) {
+        draw()
+        if (animationSource === 'scroll') {
+          window.addEventListener('scroll', handleScroll)
+        }
+      } else {
+        window.removeEventListener('scroll', handleScroll)
+      }
+    })
+  }
+
+  const observer = new IntersectionObserver(intersectionObserverCallback, {
+    root: document,
+    rootMargin: '0px',
+    threshold: 0,
+  })
 
   canvas.style.display = 'block'
   canvas.style.height = '100%'
@@ -83,10 +115,15 @@ export default function gradielicious(
   parent.appendChild(canvas)
 
   resize()
-  draw()
+
+  observer.observe(canvas)
+
+  window.addEventListener('resize', resize)
 
   return () => {
     parent.removeChild(canvas)
+    observer.disconnect()
     window.removeEventListener('resize', resize)
+    window.removeEventListener('scroll', handleScroll)
   }
 }
