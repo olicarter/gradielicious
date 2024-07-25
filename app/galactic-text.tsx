@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
 import styles from './page.module.css'
 
-export default function GalacticText() {
+export default function GalacticText(props: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
 
   const [translateY, setTranslateY] = useState(0)
@@ -34,12 +34,7 @@ export default function GalacticText() {
         fontWeight: 900,
       }}
     >
-      <p>
-        npm install gradielicious
-        <br />
-        <br />
-        npm install gradielicious-react
-      </p>
+      {props.children}
     </div>
   )
 }

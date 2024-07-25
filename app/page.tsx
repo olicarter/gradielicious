@@ -183,7 +183,17 @@ export default function Home() {
           }}
           zoom={3}
         />
-        <GalacticText />
+        <GalacticText>
+          <p>
+            npm install gradielicious
+            <br />
+            <br />
+            or
+            <br />
+            <br />
+            npm install gradielicious-react
+          </p>
+        </GalacticText>
       </section>
     </main>
   )
